@@ -29,3 +29,5 @@ python3 saymore_eaf_to_saymore_tsv.py ZOOM0030_319-321.WAV.annotations.eaf | csv
 for file in *.annotations.eaf; do saymore_eaf_to_saymore_tsv.py "$file" > "${file%.eaf}.tsv"; done  
 ```
 
+## Usage
+Note that the media file is not explicitly defined when using this script. When SayMore starts it will attempt to repair any EAF files associated with media so that the media filename is explicitly added to the header of the EAF file. 
