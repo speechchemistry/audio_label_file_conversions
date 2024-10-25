@@ -30,9 +30,9 @@ for file in *.annotations.eaf; do saymore_eaf_to_saymore_tsv.py "$file" > "${fil
 ```
 
 ## Known issues and workarounds
-Note that the media file is not explicitly defined when using this script. This may be fixed in the future. There are two workarounds:
+Note that the media filename is not explicitly defined when using this script. So the media filename is mentioned in the .eaf file. This may be fixed in the future. There are two workarounds:
 
-1. Get SayMore to add the link to the EAF file:
+1. Get SayMore to automatically add the link to the .eaf file:
    - Ensure that the .eaf file has the same filename as the .wav file but with the suffix `annoations.eaf`, for example `story_01.wav.annotations.eaf`
    - Place the .eaf and .wav files in the appropriate session folder e.g. `C:\Users\User\Documents\SayMore\Shang\Sessions\Story 01`
    - Start SayMore
