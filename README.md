@@ -29,5 +29,17 @@ python3 saymore_eaf_to_saymore_tsv.py ZOOM0030_319-321.WAV.annotations.eaf | csv
 for file in *.annotations.eaf; do saymore_eaf_to_saymore_tsv.py "$file" > "${file%.eaf}.tsv"; done  
 ```
 
-## Usage
-Note that the media file is not explicitly defined when using this script. When SayMore starts it will attempt to repair any EAF files associated with media so that the media filename is explicitly added to the header of the EAF file. You can check if this has worked by clicking on the EAF file within SayMore. If it works the View tab should show the transcriptions. If it doesn't work the View tab will say "Open filename.eaf in it's associated program". 
+## Known issues and workarounds
+Note that the media file is not explicitly defined when using this script. This may be fixed in the future. There are two workarounds:
+
+1. Get SayMore to add the link to the EAF file:
+   - Ensure that the .eaf file has the same filename as the .wav file but with the suffix `annoations.eaf`, for example `story_01.wav.annotations.eaf`
+   - Place the .eaf and .wav files in the appropriate session folder e.g. `C:\Users\User\Documents\SayMore\Shang\Sessions\Story 01`
+   - Start SayMore
+   - When SayMore starts it will attempt to repair any EAF files associated with media so that the media filename is explicitly added to the header of the EAF file. You can check if this has worked by clicking on the EAF file within SayMore. If it works the View tab should show the transcriptions. If it doesn't work the View tab will say "Open filename.eaf in it's associated program".
+
+2. Link the media file manually through ELAN
+   - Open the EAF file with ELAN e.g. by clicking on the filename.eaf link mentioned in part 1 above.
+   - Use menu Edit > Linked Files. You can then add or update a media file.
+   - Save the EAF file (e.g. using the naming convention mentinoned in part 1 above.
+   - This link should now work for ELAN and hopefully for SayMore too. 
