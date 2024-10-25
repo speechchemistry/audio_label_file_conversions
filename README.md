@@ -30,4 +30,4 @@ for file in *.annotations.eaf; do saymore_eaf_to_saymore_tsv.py "$file" > "${fil
 ```
 
 ## Usage
-Note that the media file is not explicitly defined when using this script. When SayMore starts it will attempt to repair any EAF files associated with media so that the media filename is explicitly added to the header of the EAF file. 
+Note that the media file is not explicitly defined when using this script. When SayMore starts it will attempt to repair any EAF files associated with media so that the media filename is explicitly added to the header of the EAF file. You can check if this has worked by clicking on the EAF file within SayMore. If it works the View tab should show the transcriptions. If it doesn't work the View tab will say "Open filename.eaf in it's associated program". 
