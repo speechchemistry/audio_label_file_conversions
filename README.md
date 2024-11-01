@@ -47,7 +47,7 @@ When the script `saymore_tsv_to_saymore_eaf.py` produces the .eaf file, the medi
 ## Converting to Audacity label files
 SayMore allows you to convert the EAF files to Audacity label files. You can also do this using these scripts which has the advantage of batch processing. 
 
-If you are using Linux you can easily convert the SayMore TSV file to an Audacity label file with the following command (created with help from ChatGPT):
+If you are using Linux you can easily convert the SayMore TSV file to an Audacity label file. Use the following command, substituting the filenames for your own: 
 
 ```
 awk -F'\t' 'NR > 1 { print $1 "\t" $2 "\t" $4 }' story01.tsv > story_01_audacity_freeTranslation.txt
