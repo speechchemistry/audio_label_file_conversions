@@ -34,7 +34,7 @@ When the script `saymore_tsv_to_saymore_eaf.py` produces the .eaf file, the medi
 
 1. Get SayMore to automatically add the link to the .eaf file:
    - Ensure that the .eaf file has the same filename as the .wav file but with the suffix `annoations.eaf`, for example `story_01.wav.annotations.eaf`
-   - Place the .eaf and .wav files in the appropriate session folder e.g. `C:\Users\User\Documents\SayMore\Shang\Sessions\Story 01`
+   - Place the .eaf and .wav files in the appropriate session folder e.g. `C:\Users\User\Documents\SayMore\Shang\Sessions\story_01`
    - Start SayMore
    - When SayMore starts it will attempt to repair any .eaf files associated with media so that the media filename is explicitly added to the header of the .eaf file. You can check if this has worked by clicking on the .eaf file within SayMore. If it works the View tab should show the transcriptions. If it doesn't work the View tab will say "Open filename.eaf in it's associated program".
 
@@ -43,3 +43,19 @@ When the script `saymore_tsv_to_saymore_eaf.py` produces the .eaf file, the medi
    - Use menu Edit > Linked Files. You can then add or update a media file.
    - Save the .eaf file (e.g. using the naming convention mentinoned in part 1 above).
    - This linked .eaf file should now work for ELAN and hopefully for SayMore too. 
+
+## Converting to Audacity label files
+SayMore allows you to convert the EAF files to Audacity label files. You can also do this using these scripts which has the advantage of batch processing. 
+
+If you are using Linux you can easily convert the SayMore TSV file to an Audacity label file with the following command (created with help from ChatGPT):
+
+```
+awk -F'\t' 'NR > 1 { print $1 "\t" $2 "\t" $4 }' story01.tsv > story_01_audacity_freeTranslation.txt
+```
+This will use the translation as the labels (which can be safer if you will subsequently use them for filenames where some tools insist on ASCII).
+
+To use the transcription as the labels use the following instead:
+```
+awk -F'\t' 'NR > 1 { print $1 "\t" $2 "\t" $3 }' story01.tsv > story_01_audacity_transcription.txt
+```
+
