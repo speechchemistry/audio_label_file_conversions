@@ -52,9 +52,7 @@ If you are using Linux you can easily convert the SayMore TSV file to an Audacit
 ```
 awk -F'\t' 'NR > 1 { print $1 "\t" $2 "\t" $4 }' story01.tsv > story_01_audacity_freeTranslation.txt
 ```
-This will use the translation as the labels (which can be safer if you will subsequently use them for filenames where some tools insist on ASCII).
-
-To use the transcription as the labels use the following instead:
+This will use the translation as the labels (which can be safer if you will subsequently use them for filenames where some tools insist on ASCII). To use the transcription as the labels use the following instead:
 ```
 awk -F'\t' 'NR > 1 { print $1 "\t" $2 "\t" $3 }' story01.tsv > story_01_audacity_transcription.txt
 ```
