@@ -13,7 +13,7 @@ You need Python version 3 and the following python modules:
 
 ## Installation
 
-You can either clone this repository or just select the script you want and download the raw code (e.g. in the Chrome browser on Windows right click on the "Raw" github button, and click "Save link as..."). To use the script anywhere in your file directory you may need to add the script's location to your PATH environmental variable. 
+You can either clone this repository or just select the script you want and download the raw code. To use the script anywhere in your file directory you may need to add the script's location to your PATH environmental variable. 
 
 ## Examples
 
