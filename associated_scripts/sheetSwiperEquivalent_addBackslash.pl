@@ -14,7 +14,7 @@ $count = 0;
 while(<>) # go through the feature csv file and put into the arrays
 {
    my $line = $_;
-   chomp($line);
+   $line =~ s/\r?\n$//; # chomp LF or CRLF terminators
    @lineArray = split(/\t/,$line); 
    #   $phone = shift @lineArray;
    if ($count==0)
