@@ -1,6 +1,6 @@
 # audio_label_file_conversions
 
-Script `saymore_eaf_to_saymore_tsv.py` converts from the standard SayMore EAF (ELAN) file format to the Tab-separated values (TSV) file format. It should be identical to using ELAN to load up the original EAF file and exporting as Tab-delimited Text. The advantage of the script is that it can be quickly run on multiple files and also chained together with other commands (see below for examples). It is mainly just a wrapper around the excellent [pympi](https://github.com/dopefishh/pympi) python module. 
+Script `saymore_eaf_to_saymore_tsv.py` converts from the standard SayMore EAF (ELAN) file format to the Tab-separated values (TSV) file format. It should be identical to using ELAN to load up the original EAF file and exporting as Tab-delimited Text. The advantage of the script is that it can be quickly run on multiple files and also chained together with other commands (see bottom for examples). It is mainly just a wrapper around the excellent [pympi](https://github.com/dopefishh/pympi) python module. 
 
 Script `saymore_tsv_to_saymore_eaf.py` converts in the other direction. This should be identical to importing a TSV file into a SayMore EAF template (selected in the import dialog box). 
 
@@ -45,7 +45,7 @@ When the script `saymore_tsv_to_saymore_eaf.py` produces the .eaf file, the medi
    - This linked .eaf file should now work for ELAN and hopefully for SayMore too. 
 
 ## Converting to Audacity label files
-SayMore allows you to convert the EAF files to Audacity label files. You can also do this using these scripts which has the advantage of batch processing. 
+SayMore allows you to convert the EAF files to Audacity label files. You can also do this using these scripts.
 
 If you are using Linux you can easily convert the SayMore TSV file to an Audacity label file. Use the following command, substituting the filenames for your own: 
 
