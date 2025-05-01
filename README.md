@@ -2,7 +2,7 @@
 
 Script `saymore_eaf_to_saymore_tsv.py` converts from the standard SayMore EAF (ELAN) file format to the Tab-separated values (TSV) file format. It should be identical to using ELAN to load up the original EAF file and exporting as Tab-delimited Text. The advantage of the script is that it can be quickly run on multiple files and also chained together with other commands (see bottom for examples). It is mainly just a wrapper around the excellent [pympi](https://github.com/dopefishh/pympi) python module. 
 
-Script `saymore_tsv_to_saymore_eaf.py` converts in the other direction. This should be identical to importing a TSV file into a SayMore EAF template (selected in the import dialog box). 
+Script `saymore_tsv_to_saymore_eaf.py` converts in the other direction. This should be identical to importing a TSV file into a [SayMore EAF template](https://github.com/speechchemistry/audio_label_file_conversions/blob/main/associated_scripts/say_more_template.etf) (selected in the import dialog box). 
 
 ## Requirements
 
