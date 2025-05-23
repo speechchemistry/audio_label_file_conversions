@@ -24,10 +24,10 @@ while(<>) # go through the feature csv file and put into the arrays
        print "\n";
        $countElement = 0;
        for my $lineArrayElement (@lineArray) {
-         if ($lineArrayElement ne '') {
-            print "\\$labelArray[$countElement] $lineArrayElement\n";
-         }
-       $countElement++;
+          if ($lineArrayElement ne '') {
+             print "\\$labelArray[$countElement] $lineArrayElement\n";
+          }
+          $countElement++;
        }
    } 
    $count++;
