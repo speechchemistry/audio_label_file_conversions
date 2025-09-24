@@ -32,17 +32,18 @@ for file in *.annotations.eaf; do saymore_eaf_to_saymore_tsv.py "$file" > "${fil
 ## Known issues and workarounds
 When the script `saymore_tsv_to_saymore_eaf.py` produces the .eaf file, the media filename is not explicitly mentioned in the .eaf file. This may be fixed in the future. There are two workarounds:
 
-1. Get SayMore to automatically add the link to the .eaf file:
-   - Ensure that the .eaf file has the same filename as the .wav file but with the suffix `annoations.eaf`, for example `story_01.wav.annotations.eaf`
-   - Place the .eaf and .wav files in the appropriate session folder e.g. `C:\Users\User\Documents\SayMore\Shang\Sessions\story_01`
-   - Start SayMore
-   - When SayMore starts it will attempt to repair any .eaf files associated with media so that the media filename is explicitly added to the header of the .eaf file. You can check if this has worked by clicking on the .eaf file within SayMore. If it works the View tab should show the transcriptions. If it doesn't work the View tab will say "Open filename.eaf in it's associated program".
-
-2. Link the media file manually through ELAN
+1. Link the media file manually through ELAN (preferred option)
    - Open the .eaf file with ELAN e.g. by clicking on the filename.eaf link mentioned in part 1 above.
    - Use menu Edit > Linked Files. You can then add or update a media file.
    - Save the .eaf file (e.g. using the naming convention mentinoned in part 1 above).
    - This linked .eaf file should now work for ELAN and hopefully for SayMore too. 
+
+2. Get SayMore to automatically add the link to the .eaf file (has some limitations)
+   - Ensure that the .eaf file has the same filename as the .wav file but with the suffix `annoations.eaf`, for example `story_01.wav.annotations.eaf`
+   - Place the .eaf and .wav files in the appropriate session folder e.g. `C:\Users\User\Documents\SayMore\Shang\Sessions\story_01`
+   - Start SayMore
+   - When SayMore starts it will attempt to repair any .eaf files associated with media so that the media filename is explicitly added to the header of the .eaf file. You can check if this has worked by clicking on the .eaf file within SayMore. If it works the View tab should show the transcriptions. If it doesn't work the View tab will say "Open filename.eaf in it's associated program".
+   - This approach seems to link the file without any absolute file path which I believe is not in keeping with the EAF specification. It may cause issues if you are using ELAN to launch Praat.
 
 ## Converting to Audacity label files
 SayMore allows you to convert the EAF files to Audacity label files. You can also do this using these scripts.
