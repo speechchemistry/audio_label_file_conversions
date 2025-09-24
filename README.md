@@ -61,11 +61,11 @@ awk -F'\t' 'NR > 1 { print $1 "\t" $2 "\t" $3 }' story01.tsv > story_01_audacity
 You may be familiar with using Audacity to extract individual audio files from the master audio file using the audacity labels. The following Linux command does something similar. It takes the audacity label file, and then generates the commands that call `ffmpeg`. Once you have `ffmpeg` installed you can just copy these resulting commands into the terminal.
 
 ```
-cat story_01_audacity_freeTranslation.txt |while IFS=$'\t' read -r start end label; do duration=$(printf "%.2f" "$(echo "$end - $start" | bc)"); echo ffmpeg -i '"story_01.wav"' -ss "$start" -t "$duration" -codec:a libopus "${label}.webm"; done
+cat story_01_audacity_freeTranslation.txt |while IFS=$'\t' read -r start end label; do duration=$(printf "%.2f" "$(echo "$end - $start" | bc)"); echo ffmpeg -ss "$start" -t "$duration" -i '"story_01.wav"' -codec:a libopus "${label}.webm"; done
 ```
 
 Finally these commands can be combined together to generate these individual audio files from the original EAF file:
 
 ```
-python3 saymore_eaf_to_saymore_tsv.py story_01.wav.annotations.eaf |awk -F'\t' 'NR > 1 { print $1 "\t" $2 "\t" $4 }' |while IFS=$'\t' read -r start end label; do duration=$(printf "%.2f" "$(echo "$end - $start" | bc)"); echo ffmpeg -i '"story_01.wav"' -ss "$start" -t "$duration" -codec:a libopus "${label}.webm"; done
+python3 saymore_eaf_to_saymore_tsv.py story_01.wav.annotations.eaf |awk -F'\t' 'NR > 1 { print $1 "\t" $2 "\t" $4 }' |while IFS=$'\t' read -r start end label; do duration=$(printf "%.2f" "$(echo "$end - $start" | bc)"); echo ffmpeg -ss "$start" -t "$duration" -i '"story_01.wav"' -codec:a libopus "${label}.webm"; done
 ```
