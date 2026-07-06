@@ -15,6 +15,24 @@ You need Python version 3 and the following python modules:
 
 You can either clone this repository or just select the script you want and download the raw code. To use the script anywhere in your file directory you may need to add the script's location to your PATH environmental variable. 
 
+## Testing
+
+The repository includes a `pytest` test for the `saymore_tsv_to_saymore_eaf.py` CLI.
+
+Install the test dependency if needed:
+
+```
+python3 -m pip install pytest
+```
+
+Run the test suite from the repository root:
+
+```
+pytest
+```
+
+The current test uses checked-in TSV and EAF fixtures under `tests/fixtures/tsv_to_eaf/` and compares the generated EAF XML after normalizing volatile metadata such as the generated timestamp.
+
 ## Examples
 
 ```
