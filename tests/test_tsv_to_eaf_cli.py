@@ -14,6 +14,7 @@ EXPECTED_DIR = FIXTURES_DIR / "expected"
 
 
 def _get_fixture_pairs():
+    # Fixture pairs are matched by stem, e.g. foo.tsv <-> foo.eaf.
     input_files = sorted(INPUTS_DIR.glob("*.tsv"))
     if not input_files:
         raise AssertionError(f"No TSV fixtures found in {INPUTS_DIR}")
@@ -30,6 +31,8 @@ def _get_fixture_pairs():
 
 
 def _extract_transcription_translation_rows(xml_text: str):
+    # Compare conversion semantics rather than raw XML, since serializer metadata
+    # like DATE/FORMAT/VERSION can vary across valid EAF files.
     root = ET.fromstring(xml_text.replace("\r\n", "\n").rstrip() + "\n")
 
     time_values = {}
@@ -81,6 +84,7 @@ def _extract_transcription_translation_rows(xml_text: str):
 @pytest.mark.parametrize("input_path,expected_path", _get_fixture_pairs())
 def test_tsv_stdin_converts_to_expected_eaf_stdout(input_path: Path, expected_path: Path):
 
+    # End-to-end CLI test: feed TSV via stdin and assert EAF from stdout.
     result = subprocess.run(
         [sys.executable, str(SCRIPT_PATH)],
         input=input_path.read_text(encoding="utf-8"),
