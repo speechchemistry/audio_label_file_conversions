@@ -1,0 +1,13 @@
+# User-requested ignores
+.Rproj.user/
+*:Zone.Identifier
+.vscode/launch.json
+*.received.*
+
+# Office/LibreOffice lock files
+.~lock.*
+
+# Python cache artifacts
+__pycache__/
+*.py[cod]
+.venv/

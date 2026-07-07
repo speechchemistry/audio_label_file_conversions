@@ -31,7 +31,15 @@ Run the test suite from the repository root:
 pytest
 ```
 
-The current test uses checked-in TSV and EAF fixtures under `tests/fixtures/tsv_to_eaf/` and compares the generated EAF XML after normalizing volatile metadata such as the generated timestamp.
+This test follows an approval-testing workflow:
+
+- Input fixtures are in `tests/fixtures/tsv_to_eaf/inputs/*.tsv`
+- Approved golden masters are in `tests/fixtures/tsv_to_eaf/approved/*.approved.eaf`
+- On mismatch, the normalized actual output is written to `tests/fixtures/tsv_to_eaf/received/*.received.eaf`
+
+To approve a new output, review the corresponding `.received.eaf` file and then replace the `.approved.eaf` file when the change is intentional.
+
+The test performs light XML scrubbing before comparison to reduce brittleness from volatile metadata. These fields are replaced with stable dummy values (for example `DATE`, `AUTHOR`, `URN`, and last-used annotation ids) rather than removed.
 
 ## Examples
 
