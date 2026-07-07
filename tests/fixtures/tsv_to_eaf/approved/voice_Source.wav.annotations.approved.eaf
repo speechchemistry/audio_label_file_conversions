@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ANNOTATION_DOCUMENT xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" AUTHOR="DUMMY_AUTHOR" DATE="2000-01-01T00:00:00+00:00" VERSION="2.8" FORMAT="2.8" xsi:noNamespaceSchemaLocation="http://www.mpi.nl/tools/elan/EAFv2.8.xsd">
+  <HEADER>
+    <MEDIA_DESCRIPTOR MEDIA_URL="/home/tim/github_projects/audio_label_file_conversions/tests/fixtures/tsv_to_eaf/media/voice.wav" RELATIVE_MEDIA_URL="./voice.wav" MIME_TYPE="audio/x-wav" />
+    <PROPERTY NAME="URN">DUMMY_URN</PROPERTY>
+    <PROPERTY NAME="lastUsedAnnotationId">0</PROPERTY>
+  </HEADER>
+  <TIME_ORDER>
+    <TIME_SLOT TIME_SLOT_ID="ts2" TIME_VALUE="934" />
+    <TIME_SLOT TIME_SLOT_ID="ts3" TIME_VALUE="2884" />
+    <TIME_SLOT TIME_SLOT_ID="ts4" TIME_VALUE="2884" />
+    <TIME_SLOT TIME_SLOT_ID="ts5" TIME_VALUE="4949" />
+  </TIME_ORDER>
+  <TIER TIER_ID="Transcription" LINGUISTIC_TYPE_REF="Transcription" DEFAULT_LOCALE="ipa-ext">
+    <ANNOTATION>
+      <ALIGNABLE_ANNOTATION ANNOTATION_ID="a2" TIME_SLOT_REF1="ts2" TIME_SLOT_REF2="ts3">
+        <ANNOTATION_VALUE>ðɪs ɪs ə tɛst</ANNOTATION_VALUE>
+      </ALIGNABLE_ANNOTATION>
+    </ANNOTATION>
+    <ANNOTATION>
+      <ALIGNABLE_ANNOTATION ANNOTATION_ID="a4" TIME_SLOT_REF1="ts4" TIME_SLOT_REF2="ts5">
+        <ANNOTATION_VALUE>əv mi ɹəkɔɹdɪŋ mai vois</ANNOTATION_VALUE>
+      </ALIGNABLE_ANNOTATION>
+    </ANNOTATION>
+  </TIER>
+  <TIER TIER_ID="Phrase Free Translation" LINGUISTIC_TYPE_REF="Translation" PARENT_REF="Transcription" DEFAULT_LOCALE="ipa-ext">
+    <ANNOTATION>
+      <REF_ANNOTATION ANNOTATION_ID="a3" ANNOTATION_REF="a2">
+        <ANNOTATION_VALUE>This is a test</ANNOTATION_VALUE>
+      </REF_ANNOTATION>
+    </ANNOTATION>
+    <ANNOTATION>
+      <REF_ANNOTATION ANNOTATION_ID="a5" ANNOTATION_REF="a4">
+        <ANNOTATION_VALUE>of me recording my voice</ANNOTATION_VALUE>
+      </REF_ANNOTATION>
+    </ANNOTATION>
+  </TIER>
+  <LINGUISTIC_TYPE LINGUISTIC_TYPE_ID="Transcription" TIME_ALIGNABLE="true" GRAPHIC_REFERENCES="false" />
+  <LINGUISTIC_TYPE LINGUISTIC_TYPE_ID="Translation" TIME_ALIGNABLE="false" GRAPHIC_REFERENCES="false" CONSTRAINTS="Symbolic_Association" />
+  <LOCALE LANGUAGE_CODE="ipa-ext" VARIANT="IPA Extended" />
+  <CONSTRAINT STEREOTYPE="Time_Subdivision" DESCRIPTION="Time subdivision of parent annotation's time interval, no time gaps allowed within this interval" />
+  <CONSTRAINT STEREOTYPE="Symbolic_Subdivision" DESCRIPTION="Symbolic subdivision of a parent annotation. Annotations refering to the same parent are ordered" />
+  <CONSTRAINT STEREOTYPE="Symbolic_Association" DESCRIPTION="1-1 association with a parent annotation" />
+  <CONSTRAINT STEREOTYPE="Included_In" DESCRIPTION="Time alignable annotations within the parent annotation's time interval, gaps are allowed" />
+</ANNOTATION_DOCUMENT>

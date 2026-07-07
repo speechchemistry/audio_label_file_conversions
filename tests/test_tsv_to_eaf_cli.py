@@ -11,21 +11,32 @@ SCRIPT_PATH = REPO_ROOT / "saymore_tsv_to_saymore_eaf.py"
 FIXTURES_DIR = REPO_ROOT / "tests" / "fixtures" / "tsv_to_eaf"
 INPUTS_DIR = FIXTURES_DIR / "inputs"
 APPROVED_DIR = FIXTURES_DIR / "approved"
+MEDIA_DIR = FIXTURES_DIR / "media"
 RECEIVED_DIR = FIXTURES_DIR / "received"
 DUMMY_AUTHOR = "DUMMY_AUTHOR"
 DUMMY_DATE = "2000-01-01T00:00:00+00:00"
 DUMMY_URN = "DUMMY_URN"
 DUMMY_LAST_USED_ANNOTATION = "0"
 
+MEDIA_FIXTURES = [
+    {
+        "stem": "voice_Source.wav.annotations",
+        "media_file": "voice.wav",
+    }
+]
 
-def _get_input_fixtures():
+
+def _get_input_fixtures(exclude_stems=None):
     # Each TSV input fixture is matched with approved/<stem>.approved.eaf.
     input_files = sorted(INPUTS_DIR.glob("*.tsv"))
     if not input_files:
         raise AssertionError(f"No TSV fixtures found in {INPUTS_DIR}")
 
+    exclude_stems = set(exclude_stems or [])
     pairs = []
     for input_path in input_files:
+        if input_path.stem in exclude_stems:
+            continue
         approved_path = APPROVED_DIR / f"{input_path.stem}.approved.eaf"
         if not approved_path.exists():
             raise AssertionError(
@@ -33,6 +44,25 @@ def _get_input_fixtures():
             )
         pairs.append((input_path, approved_path))
     return pairs
+
+
+def _get_media_input_fixtures():
+    fixtures = []
+    for spec in MEDIA_FIXTURES:
+        stem = spec["stem"]
+        input_path = INPUTS_DIR / f"{stem}.tsv"
+        approved_path = APPROVED_DIR / f"{stem}.approved.eaf"
+        media_path = MEDIA_DIR / spec["media_file"]
+
+        if not input_path.exists():
+            raise AssertionError(f"Missing media TSV fixture: {input_path}")
+        if not approved_path.exists():
+            raise AssertionError(f"Missing media approved fixture: {approved_path}")
+        if not media_path.exists():
+            raise AssertionError(f"Missing media file fixture: {media_path}")
+
+        fixtures.append((input_path, approved_path, media_path))
+    return fixtures
 
 
 def _strip_whitespace_nodes(element: ET.Element):
@@ -110,12 +140,38 @@ def _assert_approved(input_path: Path, approved_path: Path, actual_xml: str):
         received_path.unlink()
 
 
-@pytest.mark.parametrize("input_path,approved_path", _get_input_fixtures())
+@pytest.mark.parametrize(
+    "input_path,approved_path",
+    _get_input_fixtures(exclude_stems={f["stem"] for f in MEDIA_FIXTURES}),
+)
 def test_tsv_stdin_converts_to_approved_output(input_path: Path, approved_path: Path):
 
     # End-to-end CLI test: feed TSV via stdin and assert EAF from stdout.
     result = subprocess.run(
         [sys.executable, str(SCRIPT_PATH)],
+        input=input_path.read_text(encoding="utf-8"),
+        capture_output=True,
+        text=True,
+        check=True,
+        cwd=REPO_ROOT,
+    )
+
+    assert result.stderr == ""
+    _assert_approved(input_path, approved_path, result.stdout)
+
+
+@pytest.mark.parametrize(
+    "input_path,approved_path,media_path",
+    _get_media_input_fixtures(),
+)
+def test_tsv_stdin_converts_to_approved_output_with_media_link(
+    input_path: Path,
+    approved_path: Path,
+    media_path: Path,
+):
+
+    result = subprocess.run(
+        [sys.executable, str(SCRIPT_PATH), "--media-file", str(media_path)],
         input=input_path.read_text(encoding="utf-8"),
         capture_output=True,
         text=True,
