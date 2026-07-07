@@ -15,32 +15,6 @@ You need Python version 3 and the following python modules:
 
 You can either clone this repository or just select the script you want and download the raw code. To use the script anywhere in your file directory you may need to add the script's location to your PATH environmental variable. 
 
-## Testing
-
-The repository includes a `pytest` test for the `saymore_tsv_to_saymore_eaf.py` CLI.
-
-Install the test dependency if needed:
-
-```
-python3 -m pip install pytest
-```
-
-Run the test suite from the repository root:
-
-```
-pytest
-```
-
-This test follows an approval-testing workflow:
-
-- Input fixtures are in `tests/fixtures/tsv_to_eaf/inputs/*.tsv`
-- Approved golden masters are in `tests/fixtures/tsv_to_eaf/approved/*.approved.eaf`
-- On mismatch, the normalized actual output is written to `tests/fixtures/tsv_to_eaf/received/*.received.eaf`
-
-To approve a new output, review the corresponding `.received.eaf` file and then replace the `.approved.eaf` file when the change is intentional.
-
-The test performs light XML scrubbing before comparison to reduce brittleness from volatile metadata. These fields are replaced with stable dummy values (for example `DATE`, `AUTHOR`, `URN`, and last-used annotation ids) rather than removed.
-
 ## Examples
 
 ```
@@ -96,3 +70,28 @@ Finally these commands can be combined together to generate these individual aud
 ```
 python3 saymore_eaf_to_saymore_tsv.py story_01.wav.annotations.eaf |awk -F'\t' 'NR > 1 { print $1 "\t" $2 "\t" $4 }' |while IFS=$'\t' read -r start end label; do duration=$(printf "%.2f" "$(echo "$end - $start" | bc)"); echo ffmpeg -ss "$start" -t "$duration" -i "'story_01.wav'" -codec:a libopus "'${label}.webm'"; done
 ```
+## Testing
+
+The repository includes a `pytest` test for the `saymore_tsv_to_saymore_eaf.py` CLI.
+
+Install the test dependency if needed:
+
+```
+python3 -m pip install pytest
+```
+
+Run the test suite from the repository root:
+
+```
+pytest
+```
+
+This test follows an approval-testing workflow:
+
+- Input fixtures are in `tests/fixtures/tsv_to_eaf/inputs/*.tsv`
+- Approved golden masters are in `tests/fixtures/tsv_to_eaf/approved/*.approved.eaf`
+- On mismatch, the normalized actual output is written to `tests/fixtures/tsv_to_eaf/received/*.received.eaf`
+
+To approve a new output, review the corresponding `.received.eaf` file and then replace the `.approved.eaf` file when the change is intentional.
+
+The test performs light XML scrubbing before comparison to reduce brittleness from volatile metadata. These fields are replaced with stable dummy values (for example `DATE`, `AUTHOR`, `URN`, and last-used annotation ids) rather than removed.
