@@ -19,14 +19,22 @@ You can either clone this repository or just select the script you want and down
 
 ```
 # A simple conversion from SayMore EAF to TSV
-python3 saymore_eaf_to_saymore_tsv.py ZOOM0030_319-321.WAV.annotations.eaf > ZOOM0030_319-321.WAV.annotations.tsv
+python saymore_eaf_to_saymore_tsv.py ZOOM0030_319-321.WAV.annotations.eaf > ZOOM0030_319-321.WAV.annotations.tsv
 
 # A simple conversion from SayMore EAF to CSV in Linux (requires csvkit)
-python3 saymore_eaf_to_saymore_tsv.py ZOOM0030_319-321.WAV.annotations.eaf | csvformat --tabs > ZOOM0030_319-321.WAV.annotations.csv
+python saymore_eaf_to_saymore_tsv.py ZOOM0030_319-321.WAV.annotations.eaf | csvformat --tabs > ZOOM0030_319-321.WAV.annotations.csv
 
 # Assuming you have the script in your path, and that you are using the bash shell e.g. in Ubuntu
 # the following converts a batch of SayMore EAF files to TSV files
 for file in *.annotations.eaf; do saymore_eaf_to_saymore_tsv.py "$file" > "${file%.eaf}.tsv"; done  
+```
+
+## Linking media when converting TSV to EAF
+
+When converting TSV to EAF with `saymore_tsv_to_saymore_eaf.py`, you can link the media file in the generated EAF using `--media-file`:
+
+```
+python saymore_tsv_to_saymore_eaf.py input.annotations.tsv output.annotations.eaf --media-file story_01.wav
 ```
 
 ## Converting to Audacity label files
@@ -52,7 +60,7 @@ cat story_01_audacity_freeTranslation.txt |while IFS=$'\t' read -r start end lab
 Finally these commands can be combined together to generate these individual audio files from the original EAF file:
 
 ```
-python3 saymore_eaf_to_saymore_tsv.py story_01.wav.annotations.eaf |awk -F'\t' 'NR > 1 { print $1 "\t" $2 "\t" $4 }' |while IFS=$'\t' read -r start end label; do duration=$(printf "%.2f" "$(echo "$end - $start" | bc)"); echo ffmpeg -ss "$start" -t "$duration" -i "'story_01.wav'" -codec:a libopus "'${label}.webm'"; done
+python saymore_eaf_to_saymore_tsv.py story_01.wav.annotations.eaf |awk -F'\t' 'NR > 1 { print $1 "\t" $2 "\t" $4 }' |while IFS=$'\t' read -r start end label; do duration=$(printf "%.2f" "$(echo "$end - $start" | bc)"); echo ffmpeg -ss "$start" -t "$duration" -i "'story_01.wav'" -codec:a libopus "'${label}.webm'"; done
 ```
 ## Testing
 
@@ -61,7 +69,7 @@ The repository includes a `pytest` test for the `saymore_tsv_to_saymore_eaf.py` 
 Install the test dependency if needed:
 
 ```
-python3 -m pip install pytest
+python -m pip install pytest
 ```
 
 Run the test suite from the repository root:
